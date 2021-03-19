@@ -35,4 +35,5 @@ And remember... the source will change *for every request*, and you need to be *
 
 ### Hints
 
-Take a look at `NewsController.cs`, `Services/News/*.cs` and `Startup.cs`
+- Take a look at `NewsController.cs`, `Services/News/*.cs` and `Startup.cs`
+- `.AddHttpContextAccessor()` may prove useful
