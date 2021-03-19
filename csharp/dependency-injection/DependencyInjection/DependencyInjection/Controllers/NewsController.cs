@@ -14,16 +14,18 @@ namespace DependencyInjection.Controllers
     public class NewsController : ControllerBase
     {
         private readonly ILogger<NewsController> _logger;
+        private readonly INewsService _newsService;
 
-        public NewsController(ILogger<NewsController> logger)
+        public NewsController(ILogger<NewsController> logger, INewsService newsService)
         {
             _logger = logger;
+            _newsService = newsService;
         }
 
         [HttpGet]
         public NewsBroadcast Get()
         {
-            throw new NotImplementedException();
+            return _newsService.Get();
         }
     }
 }
