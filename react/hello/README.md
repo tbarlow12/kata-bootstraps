@@ -1,46 +1,102 @@
-# Getting Started with Create React App
+# React Code Kata
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React is a popular framework for front-end applications.
+This "hello" application is designed to walk you through a few basic steps of working with React.
 
-## Available Scripts
+## Challenge 1 - Get it running
 
-In the project directory, you can run:
+First, you'll need to install dependencies.
+From the root of `hello`, run `npm install`.
 
-### `npm start`
+Next, to start the application, run `npm start`.
+This will invoke `react-scripts start` and open your browser to `localhost:3000`, where your application will be running.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Challenge 2 - Make a change
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The home page should look something like this:
 
-### `npm test`
+![Before](images/challenge2-before.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Make it look something like this (ignore the position of the logo - it is constantly rotating):
 
-### `npm run build`
+![After](images/challenge2-after.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+You should be able to do this without restarting the application.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Challenge 3 - Change the logo
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Make your site look like this (again, ignore rotational position):
 
-### `npm run eject`
+![After](images/challenge3-after.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Challenge 4 - Add a component
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Next, we'll add our own [React component](https://reactjs.org/docs/components-and-props.html).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+After you create your `ClickCounter` component, your `App` function should look something like this:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```typescript
+import { ClickCounter } from './clickCounter';
 
-## Learn More
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        // ... (same as before)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+        // This is the important part
+        <ClickCounter/>
+      
+      </header>
+    </div>
+  );
+}
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+and your app should look something like:
+
+![Challenge 4 After](images/challenge4-after.png)
+
+## Challenge 5 - State Management
+
+This is where things start to get fun.
+One of the coolest parts of React is the ability for the page to change with new data without needing to reload.
+We're going to introduce a basic feature that will help demonstrate the power of React state management using a new-ish feature called [React hooks](https://reactjs.org/docs/hooks-intro.html).
+
+Within our `ClickCounter` component, we'll add the following
+
+- Display the current click count
+- 1 button to increment the click count (current count is incremented by 1)
+- 1 button to decrement the click count (current count is decremented by 1)
+
+![Challenge 5](images/challenge5.png)
+
+**Hint: `useState()` will be useful here*
+
+## Challenge 6 - Conditional Rendering
+
+We'll build on challenge 5 by introducing a simple toggle switch that will hide or show our click counter.
+For this, we'll install the [`react-switch` library](https://www.npmjs.com/package/react-switch).
+This should set a state variable that indicates whether to show the `ClickCounter` component or not.
+React allows you to render blocks based on conditional statements like this:
+
+```typescript
+{showCounter && <ClickCounter/>}
+```
+
+If `showCounter` is `true`, `<ClickCounter/>` will be rendered. If not, it will be hidden.
+
+## Challenge 7 - Props
+
+As you've noticed, whenever you hide your click counter, the count gets reset to 0.
+How will we keep track of our precious clicks?
+Is there any hope?
+
+![Our only hope](https://media.giphy.com/media/f6D3ZYfRpkPvlczEvQ/giphy.gif)
+
+The answer is [props](https://reactjs.org/docs/components-and-props.html)
+
+Rather than maintain the click count inside the counter component, we'll maintain it in the `App` component so it's not destroyed every time the counter is hidden.
+
+**Hint: `{showCounter && <ClickCounter count={clickCount} setCount={setClickCount}/>}`*
+
